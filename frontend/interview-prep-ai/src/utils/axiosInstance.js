@@ -8,35 +8,32 @@ const axiosInstance = axios.create({
         "Content-Type": "application/json",
         Accept: "application/json",
     },
-})
+});
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const accessToken = localStorage.getItem("token")
-        if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`;
+        const token = localStorage.getItem("token");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     (error) => {
-        if (error.response) {
-            if (error.response.status === 401) {
-                window.location.href = "/"
-            } else if (error.response.status === 500) {
-                console.error("Server error. please try again.");
+        if (error.response?.status === 401) {
+            // prevent redirect loop
+            const currentPath = window.location.pathname;
+
+            if (currentPath !== "/" && currentPath !== "/login") {
+                localStorage.removeItem("token");
+                window.location.href = "/";
             }
-        } else if (error.code === "ECONNABORATED") {
-            console.error("Request timeout. please try again.")
         }
+
         return Promise.reject(error);
     }
 );

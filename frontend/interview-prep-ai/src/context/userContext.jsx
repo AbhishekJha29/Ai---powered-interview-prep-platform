@@ -28,7 +28,7 @@ const UserProvider = ({ children }) => {
     };
 
     if (!user) fetchUser();
-  }, [user]);
+  }, []);
 
   const updateUser = (data) => {
     const token = data.token;
