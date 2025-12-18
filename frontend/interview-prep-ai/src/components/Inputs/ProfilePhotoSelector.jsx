@@ -10,11 +10,11 @@ const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
     if (file) {
       setImage(file);
 
-      const previewURL = URL.createObjectURL(file);
-      setPreviewUrl(previewURL);
+      const preview = URL.createObjectURL(file);
+      setPreviewUrl(preview);
 
       if (setPreview) {
-        setPreview(previewURL);
+        setPreview(preview);
       }
     }
 
@@ -25,7 +25,9 @@ const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
     setImage(null);
     setPreviewUrl(null);
 
-    if (setPreview) setPreview(null);
+    if (setPreview) {
+      setPreview(null)
+    }
   };
 
   const onChooseFile = () => {

@@ -15,9 +15,8 @@ exports.createSession = async (req, res) => {
             description,
         });
 
-
         const questionDocs = await Promise.all(
-            (questions || []).map(async (q) => {
+            questions.map(async (q) => {
                 const question = await Question.create({
                     session: session._id,
                     question: q.question,
@@ -31,8 +30,7 @@ exports.createSession = async (req, res) => {
         await session.save();
 
         res.status(201).json({ success: true, session });
-    } catch (error) {
-        console.error(error); // FIX 3: You were not logging the real error
+    } catch (error) { 
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };
@@ -44,7 +42,7 @@ exports.getMySessions = async (req, res) => {
             .populate("questions");
         res.status(200).json(sessions);
     } catch (error) {
-        console.error(error); // FIX: You forgot error logging
+        console.error(error); 
         res.status(500).json({ success: false, message: "Server Error" });
     }
 }

@@ -89,6 +89,7 @@ const SignUp = ({ setCurrentPage }) => {
         <Input value={email} onChange={({ target }) => setEmail(target.value)} label="Email-Address" placeholder="john@example.com" type="text" />
 
         <Input value={password} onChange={({ target }) => setPassword(target.value)} label="Email-password" placeholder="Min 8 Characters" type="password" />
+        </div>
 
         {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
@@ -98,11 +99,9 @@ const SignUp = ({ setCurrentPage }) => {
             setCurrentPage("login")
           }}
           >
-            login
+            Login
           </button>
         </p>
-
-      </div>
     </form>
 
   </div>

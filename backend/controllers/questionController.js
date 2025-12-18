@@ -4,8 +4,9 @@ const Session = require("../models/Session")
 exports.addQuestionsToSession = async (req, res) => {
     try {
         const { sessionId, questions } = req.body;
+
         if (!sessionId || !questions || !Array.isArray(questions)) {
-            return res.status(400).json({ message: "Invalid input data" })
+            return res.status(400).json({ message: "Invalid input data" });
         }
 
         const session = await Session.findById(sessionId);
@@ -14,23 +15,29 @@ exports.addQuestionsToSession = async (req, res) => {
             return res.status(404).json({ message: "Session not found" });
         }
 
-        const createdQuestions = await Question.insertMany(
-            questions.map((q) => ({
-                session: sessionId,
-                question: q.question,
-                answer: q.answer,
-            }))
-        );
+        // Validate incoming questions
+        const formattedQuestions = questions.map((q) => ({
+            session: sessionId,
+            question: q?.question || "",
+            answer: q?.answer || "",
+        }));
+
+        const createdQuestions = await Question.insertMany(formattedQuestions);
+
+        // Ensure array exists
+        if (!session.questions) session.questions = [];
 
         session.questions.push(...createdQuestions.map((q) => q._id));
-        await session.save()
+        await session.save();
 
-        res.status(201).json(createdQuestions)
+        return res.status(201).json(createdQuestions);
 
     } catch (error) {
-        res.status(500).json({ message: "Server Error " })
+        console.error("ADD QUESTIONS ERROR:", error);
+        return res.status(500).json({ message: "Server Error" });
     }
-}
+};
+
 
 exports.togglePinQuestion = async (req, res) => {
     try {

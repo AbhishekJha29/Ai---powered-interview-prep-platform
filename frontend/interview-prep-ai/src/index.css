@@ -105,11 +105,11 @@
 }
 
 .input-box {
-    @apply w-full flex justify-between gap-3 text-sm text-black bg-gray-50/50 rounded px-4 py-3 mt-3 border-gray-100 outline-none focus-within:border-orange-300;
+    @apply w-full flex justify-between gap-3 text-sm text-black bg-gray-50/50 rounded px-4 py-3 mt-3 border border-gray-100 outline-none focus-within:border-orange-300;
 }
 
 .btn-primary {
-    @apply w-full flex items-center justify-center gap-3 text-sm  text-white bg-black shadow-lg shadow-orange-600/5 p-[10px] rounded-md my-1 hover:text-black hover:bg-amber-100 cursor-pointer;
+    @apply w-full flex items-center justify-center gap-3 text-sm text-white bg-black shadow-lg shadow-orange-600/5 p-2.5 rounded-md my-1 hover:text-black hover:bg-amber-100 cursor-pointer;
 }
 
 .btn-small {

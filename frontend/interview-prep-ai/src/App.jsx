@@ -31,7 +31,8 @@ function App() {
           style: {
             fontSize: "13px",
           },
-        }} />
+        }}
+        />
 
       </div>
     </UserProvider>
