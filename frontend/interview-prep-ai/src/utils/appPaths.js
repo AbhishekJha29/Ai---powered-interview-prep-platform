@@ -13,7 +13,7 @@ export const API_PATHS = {
 
     AI: {
         GENERATE_QUESTIONS: "/api/ai/generate-questions",
-        GENERATE_EXPLANATIONS: "/api/ai/generate-explanations",
+        GENERATE_EXPLANATIONS: "/api/ai/generate-explanation",
     },
 
     SESSION: {
